@@ -25,10 +25,26 @@ public class Post {
 	// JPA가 적용되면 기본 생성자를 요구하기 때문에 써야함.
 	public Post() {}
 	
-	public Post(String title, String content, LocalDateTime createAt) {
+	public Post(String title, String content) {
 		super();
 		this.title = title;
 		this.content = content;
+		this.createAt = LocalDateTime.now();
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public void setCreateAt(LocalDateTime createAt) {
 		this.createAt = createAt;
 	}
 

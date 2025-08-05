@@ -1,5 +1,8 @@
 package com.example.demo;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,10 +17,31 @@ public class PostService {
 	// -> 카피바라는 본인만의 특별한 아이템(JPA)을 사용하여 데이터 관리
 	
 	
-	public void findAll() {
-		System.out.println("급하냥이 와플곰에게 데이터를 조회해달라고 요청."); // 현업에서는 금지 (정보 유출 가능성)
-		System.out.println("와플곰은 (카피바라에게 급하냥이 요청한 데이터가 있는지) 확인하는 작업 진행 - 미구현");
+	// 와플곰이 자신의 업무에 필요한
+	// 데이터 저장을 위해 카피바라에게 전달하는 과정
+	
+	private final PostRepository postRepository;
+	
+	@Autowired
+	public PostService(PostRepository postRepository) {
+		this.postRepository=postRepository;
+	}
+	
+	// 와플곰이 해야할 일
+	// 데이터 관련 일이 필요함.
+	// -> << CRUD 관리 >> Create, Read, Update, Delete
+	
+	// 게시글 저장 로직
+	public Long save(PostCreateDto dto) {
+		// 사실 저장할 때 리턴타입 없어도 저장 가능
+		// 지금의 경우는 > 리턴값을 통해서 데이터 저장 후의 로직을 처리하기 위함임
+		return postRepository.save(dto.toEntity()).getId();
+	}
+	
+	public List<Post> findAll() {
+//		System.out.println("급하냥이 와플곰에게 데이터를 조회해달라고 요청."); // 현업에서는 금지 (정보 유출 가능성)
 		
+		return postRepository.findAll();
 	}
 	
 }
