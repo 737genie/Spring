@@ -2,6 +2,7 @@ package com.example.demo;
 
 import java.time.LocalDateTime;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,8 +18,9 @@ public class Post {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	// 위의 어노테이션은 카피바라가 일일이 번호 붙이기 귀찮아서 들어온 순서대로 1번부터 부여할 것임을 선언
 	private Long id;
-	
+	@Column(length=200)
 	private String title;
+	@Column()
 	private String content;
 	private LocalDateTime createAt;
 	

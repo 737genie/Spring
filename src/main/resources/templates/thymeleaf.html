@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <title>우리 팀의 Thymeleaf 프로젝트</title>
+</head>
+<body>
+
+    <!-- 급하냥: "네임 스페이스 선언으로 Thymeleaf 사용 준비 완료!"   -->
+    <!-- 타임리프 문법 정리
+
+
+    th:text : 컨트롤러에서 받아온 객체의 멤버변수값을 출력(텍스트)
+    th:utext : HTML 태그 해석 출력(보안에 주의)
+    th:value : 입력 필드값 설정
+    -->
+
+    <p th:text="${message}"></p>
+    <p th:text="${객체명.변수명}"></p>
+
+    <input type="text" th:value="${user.name}" name="username">
+    <textarea th:value="${post.content}" name="content"></textarea>
+
+    <!--
+    th:src : 이미지등 미디어 파일 경로 설정
+    th:href : URL 설정시 사용
+    @{...} : 링크 표현식
+    -->
+    <img th:src="@{/images/profile/${user.profileImage}}" alt="프로필 이미지"></img>
+    <a th:href="@{post.content}" name="content"></a>
+
+    <!--
+    타임리프의 표현식 5가지
+    1. ${} : 변수 표현식(타임리프 문법의 변수 선언)
+        - 컨트롤러에서 넘어온 모든 데이터에 접근 가능
+    2. *{} : 선택변수 표현식 (전제 조건. 객체 내부에서 사용)
+
+      <p th:text="${user.name}">이름</p>
+      <p th:text="${user.age}">나이</p>
+      <p th:text="${user.email}">이메일</p>
+      
+      <div th:object="${user}">
+          <p th:text="*{name}">이름</p>  <${user.name}과 동일 
+          <p th:text="*{age}">나이</p>    ${user.age}와 동일 
+          <p th:text="*{email}">이메일</p>  ${user.email}과 동일 
+      </div>
+
+    3. #{...} : 메세지 표현식, 날짜 표현할 때도 자주 사용
+    -->
+    <p th:text="#{w.msg}">메세지</p>
+
+    <!--
+    
+    >> 제어문 <<
+    - if, unless, switch-case, each, with, block
+
+    ex.
+    -->
+    <div th:if="${user.role=='admin'}"> 
+      <a th:href="@{/admin/dashboard}">관리자 대시보드</a>
+    </div>
+
+    <div th:unless="${user!=null}">
+      <a th:href="@{/login}">로그인</a>
+    </div>
+
+    <div th:switch="${user.membershipLevel}">
+      <p th:case="'BRONZE'">브론즈 회원입니다</p>
+      <p th:case="'SILVER'">실버 회원입니다</p>
+      <p th:case="'GOLD'">골드 회원입니다</p>
+      <p th:case="'PLATINUM'">플래티넘 회원입니다</p>
+      <p th:case="*">일반 회원입니다</p>
+    </div>
+
+    <!-- each if 활용사례 -->
+    <!-- each의 경우 2개의 임시변수들이 올 때가 있음 2번째 임시변수는 반복 -->
+    <!-- userStat: 반복상태 제공 객체 -->
+    <!-- userStat.count: 현재 반복의 순번 -->
+    <!-- userStat.first: 현재 항목이 첫번째인가? -->
+    <!-- userStat.last: .. 마지막인가? -->
+    <!-- userStat.even: .. 짝수번째인가? -->
+    <!-- userStat.odd: .. 홀수번째인가? -->
+
+    <tr th:each="user: ${userList}">
+      <td th:text="${user.id}"></td>
+    </tr>
+
+    <tr th:each="user, userStat : ${userList}">
+      <td th:text="${userStat.count}">순번</td>
+      <td th:text="${user.name}">이름</td>
+      <td>
+          <span th:if="${userStat.first}" style="color: blue;">첫 번째</span>
+          <span th:if="${userStat.last}" style="color: red;">마지막</span>
+          <span th:if="${userStat.even}" style="color: green;">짝수 행</span>
+          <span th:if="${userStat.odd}" style="color: orange;">홀수 행</span>
+      </td>
+    </tr>
+
+</body>
+</html>
