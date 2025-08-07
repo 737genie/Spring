@@ -16,6 +16,12 @@ public class WordWarehouse {
 		//  -> JPA는 자바의 ORM 프레임워크
 		//  -> JPA를 실제로 구현한 클래스 중 대표적인 것: 하이버네이트
 		
+		// 3. @Autowired : 해당 필드, 생성자 또는 메서드에 대해 스프링 컨테이너가
+		//				   적절한 객체(Bean)를 찾아 자동으로 주입해주는 어노테이션
+		
+		// 4. JUnit :  테스트 코드를 작성하고, 실행할 때 사용하는 자바의 프레임워크
+		// -> 스프링과는 별개의 프레임워크
+		
 		// Oracle, MySQL - DB management system (DB 관리 시스템)
 		
 		// -- Entity 용어집 --

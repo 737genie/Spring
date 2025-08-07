@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -47,5 +48,15 @@ public class TestController {
 	public String createPost(PostCreateDto dto) {
 		postService.save(dto);
 		return "redirect:/show";
+	}
+	
+	@GetMapping(value = "/show/{id}")
+	public String showDetail(Model model, @PathVariable("id") Long id) { 
+		// PathVariable 어노테이션이 있어야 템플릿에서 보낸 값을 받아올 수 있음
+		
+		// 와플곰(서비스단)에 요청
+		postService.detail(id);
+		model.addAttribute("post", result);
+		return "detail";
 	}
 }

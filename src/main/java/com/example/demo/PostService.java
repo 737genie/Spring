@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,4 +45,7 @@ public class PostService {
 		return postRepository.findAll();
 	}
 	
+	public void detail(Long id) {
+		Optional<Post> o1 = this.postRepository.findById(id);
+	}
 }
