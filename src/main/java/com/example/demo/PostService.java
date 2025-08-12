@@ -6,6 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class PostService {
 	// 와플곰은 급하냥이 처리해달라는 것만 처리해주면 됨
@@ -45,7 +47,31 @@ public class PostService {
 		return postRepository.findAll();
 	}
 	
-	public void detail(Long id) {
-		Optional<Post> o1 = this.postRepository.findById(id);
+	   //o1 : 상세조회결과저장객체
+	   public Post detail(Long id) {
+	      // TODO Auto-generated method stub
+	      Optional<Post> detailsave = this.postRepository.findById(id);
+	      return detailsave.get();
+	   }
+
+	   //-> 컴퓨터는 지금 어떤 게시글을 업데이트 해야하는지 정보 X
+	   //-> 어떤 걸 바꿔야할지 알려줘야한다.
+	   @Transactional // 객체 자체만 불러와서 잘 바꿔주고 멤버변수를 해당
+	               // 엔티티를 통해 변경만 잘해주면 이전보다 쉽게 데이터를 수정할 수 있음
+	   public void update(Long id, PostCreateDto dto) {
+	      
+	      
+	      Optional<Post>post = postRepository.findById(id);
+	      
+	      Post p1 = post.get();
+	      p1.update(dto.getTitle(),dto.getContent());
+	   }
+	   
+	   public void delete(Long id) {
+	      Optional<Post>post = postRepository.findById(id);
+	      Post p1 = post.get();
+	      postRepository.delete(p1);
+	   }
+	   
+	   
 	}
-}

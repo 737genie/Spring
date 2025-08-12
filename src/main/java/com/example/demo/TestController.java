@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -50,13 +51,36 @@ public class TestController {
 		return "redirect:/show";
 	}
 	
-	@GetMapping(value = "/show/{id}")
-	public String showDetail(Model model, @PathVariable("id") Long id) { 
-		// PathVariable 어노테이션이 있어야 템플릿에서 보낸 값을 받아올 수 있음
-		
-		// 와플곰(서비스단)에 요청
-		postService.detail(id);
-		model.addAttribute("post", result);
-		return "detail";
-	}
+   @GetMapping(value="/show/{id}")
+   public String showDetail(Model model,@PathVariable("id") Long id){
+      //서비스단(와플곰)에게 요청
+      Post detailreturn =postService.detail(id);
+      model.addAttribute("post",detailreturn);
+      return "detail";
+   }
+
+   //업데이트 페이지
+   @GetMapping(value="/show/update/{id}")
+   public String updatePost(Model model,@PathVariable("id") Long id) {
+      Post post =postService.detail(id);
+      model.addAttribute("post",post);
+      return "update";
+   }
+   
+   //Post -> 글 저장할 때 
+   //게시글 수정 후 업데이트 하는 부분
+   @PostMapping(value="/show/update/{id}")
+   public String updatePost(@PathVariable("id") Long id, PostCreateDto dto) {
+      
+      postService.update(id,dto);
+      return "redirect:/show";
+   
+   }
+   //삭제페이지에서 무언갈 해야하는 것이 아닌 이상, getmapping이 필요없음.
+   @PostMapping(value="/show/delete/{id}")
+   public String deletePost(@PathVariable("id") Long id) {
+      
+      postService.delete(id);
+      return "redirect:/show"; //redirect:/show->show로 재전송
+   }
 }
