@@ -30,7 +30,6 @@ public class UserSecurityService implements UserDetailsService{
 		// TODO Auto-generated method stub
 		Optional<SiteUser> _user = this.userRepository.findByUsername(username);
 		
-		System.out.println(_user.toString());
 		
 		if(_user.isEmpty()) {
 			throw new UsernameNotFoundException("사용자를 찾을 수 없음.");

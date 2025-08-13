@@ -14,7 +14,7 @@
             <p class="mt-2 text-gray-600">스프링 빌리지의 주민이 되어보세요!</p>
         </div>
         <form class="mt-8 space-y-6" th:action="@{/user/signup}" method="post">
-             <div class="rounded-md shadow-sm -space-y-px">
+            <div class="rounded-md shadow-sm -space-y-px">
                 <div>
                     <label for="username" class="sr-only">아이디</label>
                     <input id="username" name="username" type="text" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm" placeholder="사용할 아이디">
@@ -30,8 +30,8 @@
                 </button>
             </div>
         </form>
-         <div class="text-center">
-            <a href="/login" class="font-medium text-green-600 hover:text-green-500">
+        <div class="text-center">
+            <a href="/user/login" class="font-medium text-green-600 hover:text-green-500">
                 이미 주민이신가요? 로그인하기
             </a>
         </div>

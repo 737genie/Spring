@@ -1,12 +1,17 @@
 package com.example.demo;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
+import com.example.demo.comment.Comment;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 // Post라고 하는 객체의 데이터 설계도(Entity)
 // 카피바라는 이 설계도(상자)를 보고 데이터 창고에 저장할 영역(테이블)을 만들어줌
@@ -71,5 +76,11 @@ public class Post {
 		this.content = content2;
 		this.createAt = LocalDateTime.now();
 	}
+	
+	// 하나의 게시글은 여러 개의 댓글을 가질 수 있다
+	// mappedBy - Comment 엔티티의 post 필드에 의해 관계가 관리됨을 명시
+	// CascadeType.REMOVE : 이 게시글이 삭제되면 관련된 모든 댓글도 삭제됨
+	@OneToMany(mappedBy="post", cascade = CascadeType.REMOVE)
+	private List<Comment> commentList;
 	
 }

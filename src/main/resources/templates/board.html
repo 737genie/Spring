@@ -23,8 +23,7 @@
 				<div sec:authorize="isAuthenticated()">
 				    <!-- sec:authentication="name" : 현재 로그인한 사용자의 이름을 표시 -->
 				    <span class="font-bold text-green-700" sec:authentication="name"></span>님 환영합니다!
-				    <a href="/create" class="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300 ml-4">새 글 쓰기</a>
-				    <a href="/logout" class="bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300 ml-2">로그아웃</a>
+				    <a href="/user/logout" class="bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300 ml-2">로그아웃</a>
 				</div>
             <a href="/create" class="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300">
                 새 글 쓰기

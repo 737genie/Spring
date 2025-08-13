@@ -47,11 +47,23 @@ public class PostService {
 		return postRepository.findAll();
 	}
 	
+	   // IllegalArgumentException 추가
 	   //o1 : 상세조회결과저장객체
 	   public Post detail(Long id) {
 	      // TODO Auto-generated method stub
+		   
+		   // 예외처리 적용 방법 1: 람다 활용(orElseThrow 쓰기)
+//		   return this.postRepository.findById(id)
+//				   .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다.")); 
+		   
+		   // 예외처리 적용 방법 2: 람다 활용 xx
 	      Optional<Post> detailsave = this.postRepository.findById(id);
+	      if(!detailsave.isPresent()) {
+	    	  throw new IllegalArgumentException("해당 게시글이 없습니다.");
+	      }
 	      return detailsave.get();
+		   
+		   
 	   }
 
 	   //-> 컴퓨터는 지금 어떤 게시글을 업데이트 해야하는지 정보 X
