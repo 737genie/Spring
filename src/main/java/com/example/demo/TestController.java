@@ -1,15 +1,14 @@
 package com.example.demo;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller //@ <-- Annotation
 public class TestController {
@@ -39,6 +38,7 @@ public class TestController {
 	
 	//create.html
 	// 게시글 작성페이지로 이동하기 위한 메서드
+	@PreAuthorize("isAuthenticated()") // 이 어노테이션과 메소드 호출이 되면 로그인한 사용자로 접근이 가능해짐
 	@GetMapping("/create") // getmapping 페이지 접근 및 조회
 	public String createPost() {
 		return "create";

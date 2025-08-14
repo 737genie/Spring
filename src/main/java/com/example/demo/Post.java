@@ -71,6 +71,15 @@ public class Post {
 		return createAt;
 	}
 	
+	
+	public List<Comment> getCommentList() {
+		return commentList;
+	}
+
+	public void setCommentList(List<Comment> commentList) {
+		this.commentList = commentList;
+	}
+
 	public void update(String title2, String content2) {
 		this.title = title2;
 		this.content = content2;

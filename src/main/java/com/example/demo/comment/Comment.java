@@ -3,6 +3,7 @@ package com.example.demo.comment;
 import java.time.LocalDateTime;
 
 import com.example.demo.Post;
+import com.example.demo.User.SiteUser;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -26,6 +27,47 @@ public class Comment {
 	@ManyToOne // 여러개의 댓글이 하나의 게시글을 바라봄
 	private Post post;
 	
-//	@ManyToOne
-//	private SiteUser author;
+	@ManyToOne
+	private SiteUser author;
+
+	public Long getId() {
+		return id;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public LocalDateTime getCreateAt() {
+		return createAt;
+	}
+
+	public Post getPost() {
+		return post;
+	}
+
+	public SiteUser getAuthor() {
+		return author;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public void setCreateAt(LocalDateTime createAt) {
+		this.createAt = createAt;
+	}
+
+	public void setPost(Post post) {
+		this.post = post;
+	}
+
+	public void setAuthor(SiteUser author) {
+		this.author = author;
+	}
+	
 }
