@@ -23,6 +23,7 @@ public class Comment {
 	private String content;
 	
 	private LocalDateTime createAt;
+	private LocalDateTime modifiedAt; // 수정시간
 	
 	@ManyToOne // 여러개의 댓글이 하나의 게시글을 바라봄
 	private Post post;
@@ -58,6 +59,7 @@ public class Comment {
 		this.content = content;
 	}
 
+
 	public void setCreateAt(LocalDateTime createAt) {
 		this.createAt = createAt;
 	}
@@ -70,4 +72,11 @@ public class Comment {
 		this.author = author;
 	}
 	
+	public LocalDateTime getModifiedAt() {
+		return modifiedAt;
+	}
+	
+	public void setModifiedAt(LocalDateTime modifiedAt) {
+		this.modifiedAt = modifiedAt;
+	}
 }

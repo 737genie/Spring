@@ -1,11 +1,13 @@
 package com.example.demo.comment;
 
 import java.security.Principal;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +28,8 @@ public class CommentController {
 	private UserRepository userRepository;
 	@Autowired
 	private CommentServiceImpl commentServiceImpl;
+	@Autowired
+	private CommentRepository commentRepository;
 	
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/create/{id}")
@@ -39,4 +43,14 @@ public class CommentController {
 		this.commentServiceImpl.create(post, content, author);
 		return String.format("redirect:/show/%s", id);
 	}
+	
+   @GetMapping("/modify/{id}")
+   public String modifyComment(
+		   Model model,
+		   @PathVariable("id") Long id) {
+	   Optional<Comment> o1 = this.commentRepository.findById(id);
+	   Comment p = o1.get();
+	   model.addAttribute("comment", p);
+      return "comment_form";
+   }
 }

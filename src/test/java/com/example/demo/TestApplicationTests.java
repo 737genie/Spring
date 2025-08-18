@@ -7,11 +7,17 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.example.demo.comment.Comment;
+import com.example.demo.comment.CommentRepository;
+
 @SpringBootTest
 class TestApplicationTests {
 	
 	@Autowired
 	private PostRepository postRepository; 
+	@Autowired
+	private CommentRepository commentRepository;
+	
 	@Test
 	void contextLoads() {
 //		
@@ -28,6 +34,10 @@ class TestApplicationTests {
 //		System.out.println(p.getTitle());
 //		System.out.println(p.getContent());
 		
+//		Optional<Comment> o1 = this.commentRepository.findById(2L);
+//		
+//		Comment p = o1.get();
+//		System.out.println(p.getContent());
 	}
 	// RUN AS 	> JUnit 으로 구동 (서버는 꺼져있는 채로)
 }
