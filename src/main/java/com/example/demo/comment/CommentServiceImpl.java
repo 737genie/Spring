@@ -26,5 +26,22 @@ public class CommentServiceImpl implements CommentService{
 		comment.setContent(content);
 		this.commentRepository.save(comment);
 	}
+
+	@Override
+	public Comment getComment(Long id) {
+		return this.commentRepository.findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("해당 댓글은 없습니다."));
+	}
+	
+	public void modify(Comment cmt, String content) {
+		cmt.setContent(content);
+		cmt.setModifiedAt(LocalDateTime.now());
+		this.commentRepository.save(cmt);
+	}
+
+	@Override
+	public void delete(Comment cmt) {
+		this.commentRepository.delete(cmt);
+	}
 	
 }

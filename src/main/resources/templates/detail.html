@@ -57,7 +57,9 @@
                 <p class="mt-2 text-gray-700" th:text="${comment.content}"></p>
 				<div class="mt-2 text-right space-x-2" sec:authorize="isAuthenticated()" th:if="${comment.author != null and #authentication.getPrincipal().getUsername() == comment.author.username}">
 				    <a th:href="@{|/comment/modify/${comment.id}|}" class="text-sm text-yellow-600 hover:underline">수정</a>
-				    <a href="javascript:void(0);" th:data-uri="@{|/comment/delete/${comment.id}|}" class="delete text-sm text-red-600 hover:underline">삭제</a>
+				    <!--javascript:void(0) : html 링크에서 페이지 이동, 새로고침 방지하면서도
+											 클릭 가능한 링크를 만들기 위해 사용하는 JS 표현식-->
+					<a href="javascript:void(0);" th:data-uri="@{|/comment/delete/${comment.id}|}" class="delete text-sm text-red-600 hover:underline">삭제</a>
 				</div>
             </div>
         </div>
@@ -77,5 +79,21 @@
 
 
 </div>
+<script>
+	document.addEventListener('DOMContentLoaded', function () {
+	    const delete_elements = document.querySelectorAll(".delete");
+	    Array.from(delete_elements).forEach(function(element) {
+	        element.addEventListener('click', function() {
+	            if(confirm("정말로 삭제하시겠습니까?")) {
+	                location.href = this.dataset.uri;
+	            }
+	        });
+	    });
+	});
+</script>
+
+
+
+
 </body>
 </html>
